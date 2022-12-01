@@ -2,12 +2,7 @@ import random
 from datetime import datetime
 
 def roll():
-    a = random.randint(1, 6) 
-    b = random.randint(1, 6)
-    c = random.randint(1, 6)
-    d = random.randint(1, 6)
-    e = random.randint(1, 6)
-    return [str(a), str(b), str(c), str(d), str(e)]
+    return [str(random.randint(1, 6)) for i in range(6)]
 
 def reroll(checkList, diceList):
     for i in range(5):
@@ -58,7 +53,7 @@ def sixes(diceNumList):
     return str(value)
 
 def choice(diceNumList):
-    value = int(diceNumList[0]) + int(diceNumList[1]) + int(diceNumList[2]) + int(diceNumList[3]) + int(diceNumList[4])
+    value = sum(int(diceNumList[i]) for i in range(5))
     return str(value)
 
 def tcard(diceNumList):
@@ -139,8 +134,7 @@ def yatcht(diceNumList):
         value = 50
     return str(value)
 
-def upsum(a, b, c, d, e, f):
-    l_ = [a, b, c, d, e, f]
+def upsum(l_):
     c = 0
     for i in l_:
         if i == '':
@@ -150,8 +144,7 @@ def upsum(a, b, c, d, e, f):
             l_[c] = int(i)
             c += 1
     return int(sum(l_))
-def score(a, b, c, d, e, f, g, h, i ,j , k, l, m, n, o):
-    l_ = [a, b, c, d, e, f, g, h, i ,j , k, l, m, n, o]
+def score(l_):
     c = 0
     for i in l_:
         if i == '':

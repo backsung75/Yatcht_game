@@ -152,10 +152,10 @@ class Yatcht(QWidget):
         #score 기록판
         self.save_q = QLabel('Score List')
         self.saver = QTextEdit()
-        # s = calcFunctions.save(0)
-        # self.saver.setText('')
-        # for i in range(len(s)):
-        #         self.saver.append(f"{i+1}위 : {s[i][1]}점\t {s[i][0]}에 기록")
+        s = calcFunctions.save(0)
+        self.saver.setText('')
+        for i in range(len(s)):
+                self.saver.append(f"{i+1}위 : {s[i][1]}점\t {s[i][0]}에 기록")
         self.saver.setReadOnly(True)
         
         # regame 버튼
@@ -290,8 +290,7 @@ class Yatcht(QWidget):
                 self.lineEditMap[key].setText(v)
                 self.rturn_ = 2
                 
-                if calcFunctions.upsum(self.aces_l.text(), self.twos_l.text(), self.threes_l.text(), \
-                    self.fours_l.text(), self.Fives_l.text(), self.Sixes_l.text()) >= 63:
+                if calcFunctions.upsum(list(line.text() for line in self.lineEditList[:6])) >= 63:
                     
                     self.Bonus_l.setText('35')
                     
@@ -307,10 +306,7 @@ class Yatcht(QWidget):
                     self.d_list[i] = '0'
                     self.check_list[i].setChecked(False)
                     
-                sc = calcFunctions.score(self.aces_l.text(), self.twos_l.text(), self.threes_l.text(),  \
-                    self.fours_l.text(), self.Fives_l.text(), self.Sixes_l.text(), self.Choice_l.text(),\
-                    self.tcard_l.text(), self.fcard_l.text(), self.f_house_l.text(), self.s_s_l.text(), \
-                    self.l_s_l.text(), self.yatcht_l.text(), self.Bonus_l.text(), self.yatchtBonus_l.text())
+                sc = calcFunctions.score(list(line.text() for line in self.lineEditList[:-1]))
                 
                 self.score_l.setText(sc)
                 self.reroll_c.setText('2')
