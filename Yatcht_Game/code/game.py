@@ -69,7 +69,7 @@ class Yatcht(QWidget):
         self.yatchtBonus_l = QLineEdit(self)
         self.score_l = QLineEdit(self)
         
-        lineEditList = [
+        self.lineEditList = [
             self.aces_l, self.twos_l, self.threes_l, self.fours_l, 
             self.Fives_l, self.Sixes_l, self.Bonus_l, self.Choice_l,
             self.tcard_l, self.fcard_l, self.f_house_l, self.s_s_l,
@@ -77,25 +77,22 @@ class Yatcht(QWidget):
         ]
         
         self.d0_img = QPixmap('D0.png')
-        self.d0_img = self.d0_img.scaledToHeight(50)
         self.d1_img = QPixmap('D1.png')
-        self.d1_img = self.d1_img.scaledToHeight(50)
         self.d2_img = QPixmap('D2.png')
-        self.d2_img = self.d2_img.scaledToHeight(50)
         self.d3_img = QPixmap('D3.png')
-        self.d3_img = self.d3_img.scaledToHeight(50)
         self.d4_img = QPixmap('D4.png')
-        self.d4_img = self.d4_img.scaledToHeight(50)
         self.d5_img = QPixmap('D5.png')
-        self.d5_img = self.d5_img.scaledToHeight(50)
         self.d6_img = QPixmap('D6.png')
-        self.d6_img = self.d6_img.scaledToHeight(50)
         
         self.dice_img = {
             "": self.d0_img,
             '1': self.d1_img, '2': self.d2_img, '3': self.d3_img,
             '4': self.d4_img, '5': self.d5_img, '6': self.d6_img
         }
+        
+        for dice in self.dice_img.values():
+            dice.scaledToHeight(50)
+            
         # 레이아웃들
         score_grid = QGridLayout()
         title_grid = QGridLayout()
@@ -107,19 +104,19 @@ class Yatcht(QWidget):
         for btnText in upperScoreList:
             button = Button(btnText, self.buttonClicked)
             button.setToolTip(tool_tip[r])
-            lineEditList[r].setReadOnly(True)
+            self.lineEditList[r].setReadOnly(True)
             barrier = QLabel('｜')
             score_grid.addWidget(button, r, 0)
-            score_grid.addWidget(lineEditList[r], r, 1)
+            score_grid.addWidget(self.lineEditList[r], r, 1)
             score_grid.addWidget(barrier, r, 2)
             r += 1
         
         # Bonus 점수판
         self.Bonus = QLabel('Bonus :')
-        lineEditList[r].setReadOnly(True)
+        self.lineEditList[r].setReadOnly(True)
         barrier = QLabel('｜')
         score_grid.addWidget(self.Bonus, r, 0)
-        score_grid.addWidget(lineEditList[r], r, 1)
+        score_grid.addWidget(self.lineEditList[r], r, 1)
         score_grid.addWidget(barrier, r, 2)
         r += 1
         
@@ -127,28 +124,28 @@ class Yatcht(QWidget):
         for btnText in lowerScoreList:
             button = Button(btnText, self.buttonClicked)
             button.setToolTip(tool_tip[r-1])
-            lineEditList[r].setReadOnly(True)
+            self.lineEditList[r].setReadOnly(True)
             barrier = QLabel('｜')
             score_grid.addWidget(button, r, 0)
-            score_grid.addWidget(lineEditList[r], r, 1)
+            score_grid.addWidget(self.lineEditList[r], r, 1)
             score_grid.addWidget(barrier, r, 2)
             r += 1
         
         # 야찌 보너스 점수판
         self.yatchtBonus = QLabel('Yatcht Bonus :')
-        lineEditList[r].setReadOnly(True)
+        self.lineEditList[r].setReadOnly(True)
         barrier = QLabel('｜')
         score_grid.addWidget(self.yatchtBonus, r, 0)
-        score_grid.addWidget(lineEditList[r], r, 1)
+        score_grid.addWidget(self.lineEditList[r], r, 1)
         score_grid.addWidget(barrier, r, 2)
         r += 1
 
         # 최종 점수판
         self.score = QLabel('score :')
-        lineEditList[r].setReadOnly(True)
+        self.lineEditList[r].setReadOnly(True)
         barrier = QLabel('｜')
         score_grid.addWidget(self.score, r, 0)
-        score_grid.addWidget(lineEditList[r], r, 1)
+        score_grid.addWidget(self.lineEditList[r], r, 1)
         score_grid.addWidget(barrier, r, 2)
         r += 1
         
@@ -328,27 +325,10 @@ class Yatcht(QWidget):
             self.cyatcht = 0
             self.ybonus = 0
             self.d_list = ['0', '0', '0', '0', '0']
-            self.aces_l.setText('')
-            self.twos_l.setText('')
-            self.threes_l.setText('')
-            self.fours_l.setText('')
-            self.Fives_l.setText('')
-            self.Sixes_l.setText('')
-            self.Bonus_l.setText('')
-            self.Choice_l.setText('')
-            self.tcard_l.setText('')
-            self.fcard_l.setText('')
-            self.f_house_l.setText('')
-            self.s_s_l.setText('')
-            self.l_s_l.setText('')
-            self.yatcht_l.setText('')
-            self.yatchtBonus_l.setText('')
-            self.dice_1.setText('')
-            self.dice_2.setText('')
-            self.dice_3.setText('')
-            self.dice_4.setText('')
-            self.dice_5.setText('')
-            self.score_l.setText('')
+            for label in self.lineEditList:
+                label.setText('')             
+            for dice in self.dice_list:
+                dice.setText('')
             for i in range(5):
                 self.dice_list[i].setPixmap(self.dice_img[self.dice_list[i].text()])
             self.roll_c.setText(str(self.turn_))
