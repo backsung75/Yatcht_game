@@ -152,10 +152,10 @@ class Yatcht(QWidget):
         #score 기록판
         self.save_q = QLabel('Score List')
         self.saver = QTextEdit()
-        s = calcFunctions.save(0)
-        self.saver.setText('')
-        for i in range(len(s)):
-                self.saver.append(f"{i+1}위 : {s[i][1]}점\t {s[i][0]}에 기록")
+        # s = calcFunctions.save(0)
+        # self.saver.setText('')
+        # for i in range(len(s)):
+        #         self.saver.append(f"{i+1}위 : {s[i][1]}점\t {s[i][0]}에 기록")
         self.saver.setReadOnly(True)
         
         # regame 버튼
